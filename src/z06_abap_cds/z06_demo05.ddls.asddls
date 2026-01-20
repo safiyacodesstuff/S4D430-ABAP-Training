@@ -23,7 +23,7 @@ define view entity Z06_Demo05
       avg(seats_occupied as abap.dec( 16, 1 )) as AverageOccupiedSeats,
 
       @Semantics.amount.currencyCode: 'CurrencyCode'
-      avg(price as abap.curr( 16, 2 ))            as AverageFlightPrice,
+      avg(price as abap.curr( 16, 2 ))         as AverageFlightPrice,
 
       currency_code                            as CurrencyCode
 }
