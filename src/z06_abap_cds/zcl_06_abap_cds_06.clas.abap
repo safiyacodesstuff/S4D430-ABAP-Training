@@ -19,7 +19,7 @@ CLASS zcl_06_abap_cds_06 IMPLEMENTATION.
       FIELDS *
       INTO TABLE @DATA(customers).
 
-      sort customers by TotalRevenue DESCENDING.
+    SORT customers BY TotalRevenue DESCENDING.
 
     out->write( customers ).
   ENDMETHOD.
