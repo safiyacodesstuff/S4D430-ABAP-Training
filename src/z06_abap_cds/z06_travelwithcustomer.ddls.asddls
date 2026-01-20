@@ -5,9 +5,6 @@
 @EndUserText.label: 'Travel with Customer'
 
 define view entity Z06_TravelWithCustomer
-  with parameters
-    p_date : abap.dats
-
   as select from Z06_Customer as c
 
     inner join   Z06_Travel   as t on t.CustomerId = c.CustomerId
@@ -20,21 +17,23 @@ define view entity Z06_TravelWithCustomer
       t.BeginDate,
       t.EndDate,
 
-      dats_days_between(t.BeginDate, t.EndDate)                as Duration,
+      @EndUserText.label: 'Duration'
+      @EndUserText.quickInfo: 'Duration'
+      dats_days_between(t.BeginDate, t.EndDate) + 1            as Duration,
 
       @Semantics.amount.currencyCode: 'CurrencyCode'
       currency_conversion(amount             => t.BookingFee,
                           source_currency    => t.CurrencyCode,
                           target_currency    => cast('EUR' as abap.cuky),
-                          exchange_rate_date => $parameters.p_date,
-                          error_handling     => 'SET_TO_NULL') as ConvertedBookingFee,
+                          exchange_rate_date => $session.system_date,
+                          error_handling     => 'SET_TO_NULL') as BookingFee,
 
       @Semantics.amount.currencyCode: 'CurrencyCode'
       currency_conversion(amount             => t.TotalPrice,
                           source_currency    => t.CurrencyCode,
                           target_currency    => cast('EUR' as abap.cuky),
-                          exchange_rate_date => $parameters.p_date,
-                          error_handling     => 'SET_TO_NULL') as ConvertedTotalPrice,
+                          exchange_rate_date => $session.system_date,
+                          error_handling     => 'SET_TO_NULL') as TotalPrice,
 
       cast('EUR' as abap.cuky)                                 as CurrencyCode,
 
@@ -60,4 +59,5 @@ define view entity Z06_TravelWithCustomer
       c.City
 }
 
-where c.CountryCode = 'DE'
+where
+  c.CountryCode = 'DE'
