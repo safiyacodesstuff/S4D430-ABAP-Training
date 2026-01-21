@@ -3,11 +3,11 @@
 {
 "FROM":
 [
-"ZI_06_TRAVEL"
+"ZI_06_BOOKING"
 ],
 "ASSOCIATED":
 [
-"ZR_06_BOOKINGTP"
+"ZR_06_TRAVELTP"
 ],
 "BASE":
 [],
