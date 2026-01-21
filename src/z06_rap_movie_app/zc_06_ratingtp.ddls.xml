@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <DDLS>
-    <DDLNAME>ZC_06_MOVIETP</DDLNAME>
+    <DDLNAME>ZC_06_RATINGTP</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Movie</DDTEXT>
+    <DDTEXT>Rating</DDTEXT>
     <SOURCE_TYPE>P</SOURCE_TYPE>
    </DDLS>
   </asx:values>

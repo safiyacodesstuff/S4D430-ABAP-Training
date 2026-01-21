@@ -1,8 +1,10 @@
 @AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Movie'
-define view entity ZR_06_MovieTP
+define root view entity ZR_06_MovieTP
   as select from ZI_06_Movie
+  
+  composition [0..*] of ZR_06_RatingTP as _Ratings
 {
   key MovieUuid,
       Title,
@@ -13,5 +15,8 @@ define view entity ZR_06_MovieTP
       CreatedAt,
       CreatedBy,
       LastChangedAt,
-      LastChangedBy
+      LastChangedBy,
+      
+      /* Associations */
+      _Ratings
 }

@@ -11,7 +11,8 @@ annotate entity ZC_06_MovieTP with
 {
   /* Facets */
   @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Movie Details'       },
-               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' } ]
+               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' },
+               { position: 20, type: #LINEITEM_REFERENCE, targetElement: '_Ratings', label: 'Ratings' } ] 
 
   /* Fields */
   @UI.fieldGroup: [ { position: 10, qualifier: 'Admin' } ]

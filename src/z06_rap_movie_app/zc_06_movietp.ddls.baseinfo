@@ -6,9 +6,14 @@
 "ZR_06_MOVIETP"
 ],
 "ASSOCIATED":
-[],
+[
+"ZC_06_RATINGTP",
+"ZR_06_RATINGTP"
+],
 "BASE":
-[],
+[
+"ZR_06_MOVIETP"
+],
 "ANNO_REF":
 [],
 "SCALAR_FUNCTION":

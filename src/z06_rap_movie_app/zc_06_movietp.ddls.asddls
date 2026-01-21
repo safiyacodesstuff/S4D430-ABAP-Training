@@ -3,8 +3,9 @@
 @EndUserText.label: 'Movie'
 @Metadata.allowExtensions: true
 @Search.searchable: true
-define view entity ZC_06_MovieTP
-  as select from ZR_06_MovieTP
+define root view entity ZC_06_MovieTP
+  as projection on ZR_06_MovieTP
+  
 {
   key MovieUuid,
   
@@ -26,5 +27,8 @@ define view entity ZC_06_MovieTP
       CreatedAt,
       CreatedBy,
       LastChangedAt,
-      LastChangedBy
+      LastChangedBy,
+      
+      /* Associations */
+      _Ratings : redirected to composition child ZC_06_RatingTP
 }
