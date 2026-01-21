@@ -1,7 +1,7 @@
 @Metadata.layer: #CUSTOMER
 
 @UI.headerInfo: { typeNamePlural: 'Ratings',
-                  title.value: 'RatingUuid',
+                  title.value: 'Rating',
                   description.value: 'UserName' }
 
 annotate entity ZC_06_RatingTP with
