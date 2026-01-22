@@ -1,4 +1,3 @@
-@AbapCatalog.viewEnhancementCategory: [#NONE]
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Rating'
 define view entity ZI_06_Rating

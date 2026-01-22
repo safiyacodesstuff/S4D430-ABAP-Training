@@ -18,21 +18,14 @@ define root view entity ZC_06_MovieTP
       @Search.defaultSearchElement: true
       @Search.fuzzinessThreshold: 0.7
       Title,
-
-      @Search.defaultSearchElement: true
+      
       @ObjectModel.text.element: [ 'GenreText' ]
       @Consumption.valueHelpDefinition: [{ entity: {name : 'ZI_06_GenreText', element: 'GenreText'} }]
       Genre,
 
-      @Search.defaultSearchElement: true
       PublishingYear,
-
-      @Search.defaultSearchElement: true
       RuntimeInMin,
-
-      @Semantics.imageUrl: true
       ImageUrl,
-
       CreatedAt,
       CreatedBy,
       LastChangedAt,

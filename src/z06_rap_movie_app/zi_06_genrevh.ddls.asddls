@@ -22,9 +22,11 @@ define view entity ZI_06_GenreVH
 
       @EndUserText.label: 'Genre'
       @EndUserText.quickInfo: 'Genre'
-      value_low,
+      value_low as Genre,
 
       @EndUserText.label: 'GenreText'
       @EndUserText.quickInfo: 'GenreText'
-      text
+      text      as GenreText
 }
+where
+  language = $session.system_language

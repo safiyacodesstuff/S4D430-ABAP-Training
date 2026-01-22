@@ -6,8 +6,8 @@
 
 define view entity ZR_06_RatingTP
   as select from ZI_06_Rating
-     
-  association        to parent ZR_06_MovieTP as _Movie on $projection.MovieUuid = _Movie.MovieUuid
+
+  association to parent ZR_06_MovieTP as _Movie on $projection.MovieUuid = _Movie.MovieUuid
 
 {
   key RatingUuid,
