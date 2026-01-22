@@ -9,7 +9,10 @@ define view entity ZI_06_Movie
       genre           as Genre,
       publishing_year as PublishingYear,
       runtime_in_min  as RuntimeInMin,
+      
+      @Semantics.imageUrl: true
       image_url       as ImageUrl,
+      
       created_at      as CreatedAt,
       created_by      as CreatedBy,
       last_changed_at as LastChangedAt,

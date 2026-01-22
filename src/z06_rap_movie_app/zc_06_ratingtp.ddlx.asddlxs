@@ -1,18 +1,18 @@
 @Metadata.layer: #CUSTOMER
 
-@UI.headerInfo: { typeNamePlural: 'Ratings',
-                  title.value: 'Rating',
-                  description.value: 'UserName' }
+@UI.headerInfo: { typeNamePlural: 'Ratings', title.value: 'Rating', description.value: 'UserName' }
+
+@UI.presentationVariant: [ { sortOrder: [ { by: 'RatingDate', direction: #DESC },
+                                          { by: 'UserName',   direction: #ASC  } ] } ]
 
 annotate entity ZC_06_RatingTP with
 
 {
   /* Facets */
-  @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Rating Details' },
-               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin', label: 'Administrative Data' } ]
+  @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Rating Details'      },
+               { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' } ]
 
   /* Fields */
-
   @UI.fieldGroup: [ { position: 10, qualifier: 'Admin' } ]
   RatingUuid;
 
@@ -30,5 +30,4 @@ annotate entity ZC_06_RatingTP with
   @UI.fieldGroup: [ { position: 30, qualifier: 'Admin' } ]
   @UI.lineItem: [ { position: 30 } ]
   RatingDate;
-
 }

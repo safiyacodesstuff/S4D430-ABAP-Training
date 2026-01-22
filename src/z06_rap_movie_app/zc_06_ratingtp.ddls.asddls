@@ -1,6 +1,5 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Rating'
-@Metadata.ignorePropagatedAnnotations: true
 @Metadata.allowExtensions: true
 define view entity ZC_06_RatingTP
   as projection on ZR_06_RatingTP

@@ -6,13 +6,16 @@
                   description.value: 'PublishingYear',
                   imageUrl: 'ImageUrl' }
 
+@UI.lineItem: [ { criticality: 'AverageRatingCriticality' } ]
+@UI.presentationVariant: [ { sortOrder: [ { by: 'AverageRating', direction: #DESC } ] } ]
+
 annotate entity ZC_06_MovieTP with
 
 {
   /* Facets */
   @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Movie Details'       },
                { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin',   label: 'Administrative Data' },
-               { position: 20, type: #LINEITEM_REFERENCE, targetElement: '_Ratings', label: 'Ratings' } ] 
+               { position: 20, type: #LINEITEM_REFERENCE, targetElement: '_Ratings', label: 'Ratings' } ]
 
   /* Fields */
   @UI.fieldGroup: [ { position: 10, qualifier: 'Admin' } ]
@@ -24,17 +27,20 @@ annotate entity ZC_06_MovieTP with
 
   @UI.fieldGroup: [ { position: 20, qualifier: 'Details' } ]
   @UI.lineItem: [ { position: 30 } ]
+  @UI.selectionField: [ { position: 10 } ]
   Genre;
 
   @UI.fieldGroup: [ { position: 30, qualifier: 'Details' } ]
   @UI.lineItem: [ { position: 40 } ]
+  @UI.selectionField: [ { position: 20 } ]
   PublishingYear;
 
   @UI.fieldGroup: [ { position: 40, qualifier: 'Details' } ]
   @UI.lineItem: [ { position: 50 } ]
+  @UI.selectionField: [ { position: 30 } ]
   RuntimeInMin;
 
-  @UI.fieldGroup: [ { position: 50, qualifier: 'Details' } ]
+  @UI.fieldGroup: [ { position: 60, qualifier: 'Details' } ]
   @UI.lineItem: [ { position: 10 } ]
   ImageUrl;
 
@@ -49,4 +55,13 @@ annotate entity ZC_06_MovieTP with
 
   @UI.fieldGroup: [ { position: 50, qualifier: 'Admin' } ]
   LastChangedBy;
+
+  @UI.fieldGroup: [ { position: 50, qualifier: 'Details', criticality: 'AverageRatingCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.lineItem: [ { position: 999, criticality: 'AverageRatingCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.selectionField: [ { position: 40 } ]
+  @UI.dataPoint.criticality: 'AverageRatingCriticality'
+  AverageRating;
+
+  @UI.hidden: true
+  AverageRatingCriticality;
 }
