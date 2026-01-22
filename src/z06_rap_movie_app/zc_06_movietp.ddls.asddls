@@ -9,6 +9,7 @@
 @Search.searchable: true
 
 define root view entity ZC_06_MovieTP
+  provider contract transactional_query
   as projection on ZR_06_MovieTP
 
 {
@@ -34,12 +35,12 @@ define root view entity ZC_06_MovieTP
       CreatedBy,
       LastChangedAt,
       LastChangedBy,
-      
+
       /* Transient Data */
       _AverageRating.AverageRating,
       _AverageRating.AverageRatingCriticality,
       _GenreText.GenreText,
-      
+
       /* Associations */
       _Ratings : redirected to composition child ZC_06_RatingTP
 }
