@@ -15,11 +15,13 @@ define root view entity ZC_06_MovieTP
 {
   key MovieUuid,
 
+      @Search.defaultSearchElement: true
       @Search.fuzzinessThreshold: 0.7
       Title,
 
       @Search.defaultSearchElement: true
       @ObjectModel.text.element: [ 'GenreText' ]
+      @Consumption.valueHelpDefinition: [{ entity: {name : 'ZI_06_GenreText', element: 'GenreText'} }]
       Genre,
 
       @Search.defaultSearchElement: true
