@@ -7,13 +7,18 @@
 define root view entity ZR_06_TravelTP
   as select from ZI_06_Travel
   
-  composition [0..*] of ZR_06_BookingTP as _Bookings  
+  association [1..1] to ZI_06_CustomerText as _CustomerText on $projection.CustomerId = _CustomerText.CustomerId
+
+  composition [0..*] of ZR_06_BookingTP as _Bookings
 
 {
   key TravelId,
 
       AgencyId,
+      
+      @ObjectModel.text.element: [ 'CustomerName' ]
       CustomerId,
+      
       BeginDate,
       EndDate,
       BookingFee,
@@ -25,7 +30,16 @@ define root view entity ZR_06_TravelTP
       CreatedAt,
       LastChangedBy,
       LastChangedAt,
+
+      /* Transient Data */
+      case Status when 'x' then 1
+                  when 'P' then 2
+                  when 'B' then 3
+                  else 0
+      end                       as StatusCriticality,
       
+      _CustomerText.CustomerName as CustomerName,
+
       /* Associations */
       _Bookings
 }

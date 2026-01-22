@@ -1,6 +1,10 @@
 @Metadata.layer: #CUSTOMER
 
 @UI.headerInfo: { typeNamePlural: 'Travels', title.value: 'TravelId', description.value: 'Description' }
+@UI.lineItem: [ { criticality: 'StatusCriticality' } ]
+
+@UI.presentationVariant: [ { sortOrder: [ { by: 'BeginDate', direction: #DESC },
+                                          { by: 'EndDate',   direction: #ASC  } ] } ]
 
 annotate entity ZC_06_TravelTP with
 
@@ -50,8 +54,11 @@ annotate entity ZC_06_TravelTP with
   @UI.lineItem: [ { position: 70 } ]
   Description;
 
-  @UI.fieldGroup: [ { position: 90, qualifier: 'Details' } ]
-  @UI.lineItem: [ { position: 80 } ]
+  @UI.fieldGroup: [ { position: 90,
+                      qualifier: 'Details',
+                      criticality: 'StatusCriticality',
+                      criticalityRepresentation: #WITHOUT_ICON } ]
+  @UI.lineItem: [ { position: 80, criticality: 'StatusCriticality', criticalityRepresentation: #WITHOUT_ICON } ]
   @UI.selectionField: [ { position: 60 } ]
   Status;
 
@@ -66,4 +73,7 @@ annotate entity ZC_06_TravelTP with
 
   @UI.fieldGroup: [ { position: 40, qualifier: 'Admin' } ]
   LastChangedAt;
+  
+  @UI.hidden: true
+  StatusCriticality;
 }
