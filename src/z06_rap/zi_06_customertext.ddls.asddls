@@ -10,8 +10,8 @@ define view entity ZI_06_CustomerText
 {
   key customer_id as CustomerId,
 
-      @EndUserText.label: 'CustomerName'
-      @EndUserText.quickInfo: 'CustomerName'
+      @EndUserText.label: 'Customer Name'
+      @EndUserText.quickInfo: 'Customer Name'
       case when title is initial then concat_with_space(first_name, last_name, 1)
            else concat_with_space(title, concat_with_space(first_name, last_name, 1), 1)
       end         as CustomerName

@@ -13,10 +13,9 @@ annotate entity ZC_06_TravelTP with
   @UI.facet: [ { position: 10, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Details', label: 'Travel Details' },
                { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin', label: 'Administrative Data' },
                { position: 20, type: #LINEITEM_REFERENCE, targetElement: '_Bookings', label: 'Bookings' } ]
-  @UI.fieldGroup: [ { position: 10, qualifier: 'Details' } ]
-
 
   /* Fields */
+  @UI.fieldGroup: [ { position: 10, qualifier: 'Details' } ]
   @UI.lineItem: [ { position: 10 } ]
   TravelId;
 

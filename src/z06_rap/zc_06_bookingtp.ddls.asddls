@@ -12,7 +12,7 @@ define view entity ZC_06_BookingTP
       FlightDate,
       FlightPrice,
       CurrencyCode,
-      
+
       /* Associations */
-      _Travel: redirected to parent ZC_06_TravelTP
+      _Travel : redirected to parent ZC_06_TravelTP
 }

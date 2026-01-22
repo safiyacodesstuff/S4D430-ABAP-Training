@@ -12,7 +12,12 @@ authorization master ( instance )
   update;
   delete;
   association _Bookings { create; }
-  field ( readonly ) TravelId;
+
+//  field ( readonly ) TravelId;
+  field ( mandatory : create ) AgencyId, BeginDate, CustomerId, Description, EndDate;
+  field ( readonly : update ) AgencyId, BeginDate, CustomerId, Description, EndDate;
+
+  validation ValidateCustomer on save { create; }
 
   mapping for /dmo/travel corresponding
     {
