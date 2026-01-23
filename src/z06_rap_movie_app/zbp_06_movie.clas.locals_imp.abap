@@ -22,7 +22,7 @@ CLASS lhc_rating IMPLEMENTATION.
     ENDLOOP.
 
     MODIFY ENTITIES OF ZR_06_MovieTP IN LOCAL MODE
-           ENTITY rating
+           ENTITY Rating
            UPDATE
            FIELDS ( RatingDate )
            WITH ratings.
@@ -31,7 +31,7 @@ CLASS lhc_rating IMPLEMENTATION.
 
   METHOD DetermineUserName.
 
-  DATA ratings TYPE TABLE FOR UPDATE ZR_06_RatingTP.
+    DATA ratings TYPE TABLE FOR UPDATE ZR_06_RatingTP.
 
     LOOP AT keys INTO DATA(key).
       APPEND VALUE #( %tky   = key-%tky
@@ -39,7 +39,7 @@ CLASS lhc_rating IMPLEMENTATION.
     ENDLOOP.
 
     MODIFY ENTITIES OF ZR_06_MovieTP IN LOCAL MODE
-           ENTITY rating
+           ENTITY Rating
            UPDATE
            FIELDS ( UserName )
            WITH ratings.
@@ -50,7 +50,6 @@ ENDCLASS.
 
 CLASS lhc_Movie DEFINITION INHERITING FROM cl_abap_behavior_handler.
   PRIVATE SECTION.
-
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       IMPORTING keys REQUEST requested_authorizations FOR Movie RESULT result.
 
@@ -58,6 +57,8 @@ CLASS lhc_Movie DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING REQUEST requested_authorizations FOR Movie RESULT result.
     METHODS ValidateGenre FOR VALIDATE ON SAVE
       IMPORTING keys FOR Movie~ValidateGenre.
+    METHODS RateMovie FOR MODIFY
+      IMPORTING keys FOR ACTION Movie~RateMovie. " RESULT result.
 
 ENDCLASS.
 
@@ -83,9 +84,9 @@ CLASS lhc_Movie IMPLEMENTATION.
     LOOP AT movies INTO DATA(movie).
 
       " Validate Genres and Create Error Message
-      SELECT SINGLE FROM zabap_movie_a
+      SELECT SINGLE FROM ddcds_customer_domain_value( p_domain_name = 'ZABAP_GENRE' )
         FIELDS @abap_true
-        WHERE genre = @movie-Genre
+        WHERE value_low = @movie-Genre
         INTO @DATA(exists).
 
       IF exists = abap_false.  " IF exists IS INITIAL.  " IF exists = ''.
@@ -100,6 +101,61 @@ CLASS lhc_Movie IMPLEMENTATION.
       ENDIF.
 
     ENDLOOP.
+  ENDMETHOD.
+
+  METHOD RateMovie.
+    DATA ratings TYPE TABLE FOR CREATE ZR_06_MovieTP\_Ratings.
+
+    DATA(valid_keys) = keys.
+
+    " Process Movie Keys
+    LOOP AT keys INTO DATA(key).
+
+      " Validate Rating
+      IF key-%param-Rating >= 1 AND key-%param-Rating <= 10.
+        DATA(message) = NEW zcm_abap_movie( textid   = zcm_abap_movie=>movie_rated_successfully
+                                            rating   = key-%param-Rating
+                                            severity = if_abap_behv_message=>severity-success ).
+
+        APPEND VALUE #( %tky              = key-%tky
+                        %msg              = message
+                        %action-RateMovie = if_abap_behv=>mk-on ) TO reported-movie.
+
+        CONTINUE.
+      ENDIF.
+
+      " Create Error Message
+      " TODO: variable is assigned but never used (ABAP cleaner)
+      DATA(message2) = NEW zcm_abap_movie( textid   = zcm_abap_movie=>invalid_rating
+                                           rating   = key-%param-Rating
+                                           severity = if_abap_behv_message=>severity-error ).
+
+      APPEND VALUE #( %tky              = key-%tky
+                      %msg              = message
+                      %action-RateMovie = if_abap_behv=>mk-on ) TO reported-movie.
+
+      APPEND VALUE #( %tky = key-%tky ) TO failed-movie.
+      DELETE valid_keys WHERE %tky = key-%tky.
+
+    ENDLOOP.
+
+    " Check Movie-Keys
+    IF valid_keys IS INITIAL.
+      RETURN.
+    ENDIF.
+
+    " Create Ratings
+    LOOP AT valid_keys INTO key.
+      APPEND VALUE #( %tky    = key-%tky
+                      %target = VALUE #( ( Rating = key-%param-Rating ) ) ) TO ratings.
+    ENDLOOP.
+
+    MODIFY ENTITIES OF ZR_06_MovieTP IN LOCAL MODE
+           ENTITY Movie
+           CREATE BY \_Ratings
+           AUTO FILL CID
+           FIELDS ( Rating )
+           WITH ratings.
   ENDMETHOD.
 
 ENDCLASS.
