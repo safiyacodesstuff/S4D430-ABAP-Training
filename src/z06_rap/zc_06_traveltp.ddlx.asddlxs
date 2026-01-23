@@ -14,9 +14,13 @@ annotate entity ZC_06_TravelTP with
                { position: 20, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Admin', label: 'Administrative Data' },
                { position: 20, type: #LINEITEM_REFERENCE, targetElement: '_Bookings', label: 'Bookings' } ]
 
+  /* Actions */
+  @UI.identification: [{ position: 10, type: #FOR_ACTION, label: 'Cancel Travel', dataAction: 'CancelTravel' }]
+
   /* Fields */
   @UI.fieldGroup: [ { position: 10, qualifier: 'Details' } ]
-  @UI.lineItem: [ { position: 10 } ]
+  @UI.lineItem: [ { position: 10 },
+                  { position: 10, type: #FOR_ACTION, label: 'Cancel Travel', dataAction: 'CancelTravel' } ]  // Action
   TravelId;
 
   @UI.fieldGroup: [ { position: 20, qualifier: 'Details' } ]
@@ -72,7 +76,7 @@ annotate entity ZC_06_TravelTP with
 
   @UI.fieldGroup: [ { position: 40, qualifier: 'Admin' } ]
   LastChangedAt;
-  
+
   @UI.hidden: true
   StatusCriticality;
 }
