@@ -20,7 +20,7 @@ define root view entity ZC_06_MovieTP
       Title,
       
       @ObjectModel.text.element: [ 'GenreText' ]
-      @Consumption.valueHelpDefinition: [{ entity: {name : 'ZI_06_GenreText', element: 'GenreText'} }]
+      @Consumption.valueHelpDefinition: [{ entity: {name : 'ZI_06_GenreVH', element: 'GenreText'} }]
       Genre,
 
       PublishingYear,
