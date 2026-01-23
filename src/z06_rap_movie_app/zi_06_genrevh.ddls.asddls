@@ -8,7 +8,7 @@
 
 define view entity ZI_06_GenreVH
   as select from DDCDS_CUSTOMER_DOMAIN_VALUE_T(
-                   p_domain_name : 'ZABAP GENRE')
+                   p_domain_name : 'ZABAP_GENRE')
 
 {
       @UI.hidden: true
@@ -28,5 +28,6 @@ define view entity ZI_06_GenreVH
       @EndUserText.quickInfo: 'GenreText'
       text      as GenreText
 }
+
 where
   language = $session.system_language
