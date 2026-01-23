@@ -1,3 +1,53 @@
+CLASS lhc_rating DEFINITION INHERITING FROM cl_abap_behavior_handler.
+
+  PRIVATE SECTION.
+
+    METHODS DetermineRatingDate FOR DETERMINE ON SAVE
+      IMPORTING keys FOR Rating~DetermineRatingDate.
+
+    METHODS DetermineUserName FOR DETERMINE ON SAVE
+      IMPORTING keys FOR Rating~DetermineUserName.
+
+ENDCLASS.
+
+CLASS lhc_rating IMPLEMENTATION.
+
+  METHOD DetermineRatingDate.
+
+    DATA ratings TYPE TABLE FOR UPDATE ZR_06_RatingTP.
+
+    LOOP AT keys INTO DATA(key).
+      APPEND VALUE #( %tky   = key-%tky
+                      RatingDate = sy-datum ) TO ratings.
+    ENDLOOP.
+
+    MODIFY ENTITIES OF ZR_06_MovieTP IN LOCAL MODE
+           ENTITY rating
+           UPDATE
+           FIELDS ( RatingDate )
+           WITH ratings.
+
+  ENDMETHOD.
+
+  METHOD DetermineUserName.
+
+  DATA ratings TYPE TABLE FOR UPDATE ZR_06_RatingTP.
+
+    LOOP AT keys INTO DATA(key).
+      APPEND VALUE #( %tky   = key-%tky
+                      UserName = sy-uname ) TO ratings.
+    ENDLOOP.
+
+    MODIFY ENTITIES OF ZR_06_MovieTP IN LOCAL MODE
+           ENTITY rating
+           UPDATE
+           FIELDS ( UserName )
+           WITH ratings.
+
+  ENDMETHOD.
+
+ENDCLASS.
+
 CLASS lhc_Movie DEFINITION INHERITING FROM cl_abap_behavior_handler.
   PRIVATE SECTION.
 
